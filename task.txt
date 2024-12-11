@@ -1,0 +1,15 @@
+Задание на 4. Курсовая АиСД. Коршков А.А.
+
+В магазине мясопродуктов продается бройлер. 
+Покупатели предпочитают тушки побольше, поэтому всегда выбирают курицу максимального веса.
+Каждый день в магазин поступает новая партия бройлеров, которую можно представить в виде списка весов тушек.
+Прежде владелец для каждого покупателя взвешивал каждую доступную тушку и выбирал из них максимальную по весу. 
+Со временем он понял, что это неоптимальный вариант.
+Помогите владельцу с решением данной проблемы путем выбора и реализации оптимальной структуры данных для хранения весов тушек
+
+A broiler is sold in a meat products store. 
+Buyers prefer bigger carcasses, so they always choose the maximum weight chicken.
+Every day, a new batch of broilers arrives at the store, which can be represented as a list of carcass weights.
+Previously, the owner weighed each available carcass for each customer and selected the maximum weight from them. 
+Over time, he realized that this was not the best option.
+Help the owner with solving this problem by choosing and implementing the optimal data structure for storing carcass weights.
