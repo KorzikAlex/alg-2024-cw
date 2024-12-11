@@ -2,18 +2,20 @@
 This file contains the implementation of a max heap.
 """
 
+
 class MaxPriorityQueue:
     """
     This class implements a max heap.
     """
+
     def __init__(self: object) -> None:
         """
         Initializes a new instance of the MaxPriorityQueue class.
 
-        This method creates an empty max heap 
-        to store the elements. 
+        This method creates an empty max heap
+        to store the elements.
         The heap is represented as a list,
-        where the parent node of an element 
+        where the parent node of an element
         at index i is at index (i-1)//2, and the left and right children
         are at indices 2*i+1 and 2*i+2, respectively.
 
@@ -25,8 +27,7 @@ class MaxPriorityQueue:
         """
         self.__heap: list = []
 
-
-    def _parent(self: object, index: int) -> int:
+    def __parent(self: object, index: int) -> int:
         """
         Calculates the index of the parent node in the heap.
 
@@ -41,7 +42,6 @@ class MaxPriorityQueue:
         """
         return (index - 1) // 2
 
-
     def __left_child(self: object, index: int) -> int:
         """
         Calculates the index of the left child node in the heap.
@@ -54,7 +54,6 @@ class MaxPriorityQueue:
         """
         return 2 * index + 1
 
-
     def __right_child(self: object, index: int) -> int:
         """
         Calculates the index of the right child node in the heap.
@@ -66,7 +65,6 @@ class MaxPriorityQueue:
         int: The index of the right child node in the heap.
         """
         return 2 * index + 2
-
 
     def __swap(self: object, i: int, j: int) -> None:
         """
@@ -85,7 +83,6 @@ class MaxPriorityQueue:
         """
         self.__heap[i], self.__heap[j] = self.__heap[j], self.__heap[i]
 
-
     def __heapify_up(self: object, index: int) -> None:
         """
         Restores the max heap property by moving an element up the heap.
@@ -102,11 +99,10 @@ class MaxPriorityQueue:
         Returns:
         None
         """
-        parent: int = self._parent(index)
+        parent: int = self.__parent(index)
         if index > 0 and self.__heap[parent] < self.__heap[index]:
             self.__swap(parent, index)
             self.__heapify_up(parent)
-
 
     def __heapify_down(self: object, index: int) -> None:
         """
@@ -130,10 +126,9 @@ class MaxPriorityQueue:
             largest = left
         if right < len(self.__heap) and self.__heap[right] > self.__heap[largest]:
             largest = right
-        if largest!= index:
+        if largest != index:
             self.__swap(index, largest)
             self.__heapify_down(largest)
-
 
     def insert(self: object, value) -> None:
         """
@@ -152,8 +147,7 @@ class MaxPriorityQueue:
         self.__heap.append(value)
         self.__heapify_up(len(self.__heap) - 1)
 
-
-    def extract_max(self: object) -> int:
+    def extract_max(self: object) -> object:
         """
         Removes and returns the maximum element from the priority queue.
 
@@ -177,7 +171,6 @@ class MaxPriorityQueue:
         self.__heapify_down(0)
         return max_value
 
-
     def peek_max(self: object) -> int:
         """
         Returns the maximum element in the priority queue without removing it.
@@ -198,7 +191,6 @@ class MaxPriorityQueue:
             raise IndexError("Priority queue is empty")
         return self.__heap[0]
 
-
     def __len__(self: object) -> int:
         """
         Get the number of elements in the priority queue.
@@ -212,7 +204,6 @@ class MaxPriorityQueue:
         int: The number of elements currently in the priority queue.
         """
         return len(self.__heap)
-
 
     def is_empty(self: object) -> bool:
         """
@@ -228,3 +219,17 @@ class MaxPriorityQueue:
         """
         return len(self) == 0
 
+    def __str__(self: object) -> str:
+        """
+        Convert the priority queue to a string representation.
+
+        This method returns a string representation of the priority queue,
+        where each element is separated by a comma and a space.
+
+        Parameters:
+        self (object): The instance of the MaxPriorityQueue class.
+
+        Returns:
+        str: A string representation of the priority queue.
+        """
+        return ", ".join(map(str, self.__heap))
