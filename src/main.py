@@ -1,11 +1,15 @@
 """
 The main file.
 """
-from modules.priority_queue import MaxPriorityQueue
+from modules.max_binary_heap import MaxBinaryHeap
 from modules.console_functions import get_answer, clear_console, handle_delivery, handle_sale, print_broilers
 
+
 def main() -> None:
-    pq: MaxPriorityQueue = MaxPriorityQueue()
+    """
+    The main function of program.
+    """
+    pq: MaxBinaryHeap = MaxBinaryHeap()
     clear_console()
     print("Здравствуйте, милорд! Чтобы вы хотели сделать?")
     while True:
