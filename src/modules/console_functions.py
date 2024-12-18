@@ -2,20 +2,13 @@
 This file contains functions to work with console in meat's shop.
 """
 
+from os import name as os_name
+from os import system
+
 from modules.priority_queue import MaxPriorityQueue
 
 
 def get_answer() -> int:
-    """
-    This function retrieves a user's choice from a console menu.
-
-    Parameters:
-    None
-
-    Returns:
-    int: The user's choice as an integer. The value must be between 1 and 4 inclusive.
-         If the user enters an invalid choice, a ValueError is raised.
-    """
     ans = int(
         input(
             "1)Сделать поставку бройлеров в магазин\n"
@@ -30,22 +23,46 @@ def get_answer() -> int:
 
 
 def deliver_broilers(pq: MaxPriorityQueue) -> MaxPriorityQueue:
-    """
-    This function simulates the delivery of broilers to the meat shop.
-    It takes a priority queue (MaxPriorityQueue) as input,
-    where each element represents the weight of a broiler.
-    The function clears the console, prints a message asking for broiler weights,
-    retrieves the weights from the user, and inserts them into the priority queue.
-    Finally, it prints a success message.
-
-    Parameters:
-    pq (MaxPriorityQueue): A priority queue where each element represents the weight of a broiler.
-
-    Returns:
-    MaxPriorityQueue: The same priority queue after inserting the new broiler weights.
-    """
     weights = list(map(float, input().replace(",", ".").split()))
     for i in weights:
         pq.insert(i)
-    print("Бройлеры успешно добавлены в магазин.")
     return pq
+
+
+def clear_console():
+    """Очищает консоль."""
+    system("cls" if os_name == "nt" else "clear")
+
+
+def handle_delivery(pq: MaxPriorityQueue):
+    """Обрабатывает поставку бройлеров."""
+    print(
+        "Сделать поставку бройлеров в магазин.\n"
+        "Введите через пробел вес бройлеров:"
+    )
+    while True:
+        try:
+            pq = deliver_broilers(pq)
+            clear_console()
+            print("Бройлеры успешно добавлены в магазин.")
+            break
+        except ValueError:
+            clear_console()
+            print(
+                "Ошибка! Некорректный ввод веса!\n"
+                "Введите ещё раз вес каждого бройлера через пробел."
+            )
+
+
+def handle_sale(pq: MaxPriorityQueue):
+    """Обрабатывает продажу бройлера."""
+    try:
+        print("Продан бройлер", pq.peek_max())
+        pq.extract_max()
+    except IndexError:
+        print("Ассортимент пуст.")
+
+def print_broilers(pq: MaxPriorityQueue):
+    """Отображает текущие поставки бройлеров."""
+    print("Текущие поставки бройлеров:")
+    print(pq)

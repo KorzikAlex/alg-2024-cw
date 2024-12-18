@@ -4,30 +4,10 @@ This file contains the implementation of a max heap.
 
 
 class MaxPriorityQueue:
-    """
-    This class implements a max heap.
-    """
-
     def __init__(self: object) -> None:
-        """
-        Initializes a new instance of the MaxPriorityQueue class.
-
-        This method creates an empty max heap
-        to store the elements.
-        The heap is represented as a list,
-        where the parent node of an element
-        at index i is at index (i-1)//2, and the left and right children
-        are at indices 2*i+1 and 2*i+2, respectively.
-
-        Parameters:
-        None
-
-        Returns:
-        None
-        """
         self.__heap: list = []
 
-    def __parent(self: object, index: int) -> int:
+    def _parent(self: object, index: int) -> int:
         """
         Calculates the index of the parent node in the heap.
 
@@ -42,7 +22,7 @@ class MaxPriorityQueue:
         """
         return (index - 1) // 2
 
-    def __left_child(self: object, index: int) -> int:
+    def _left_child(self: object, index: int) -> int:
         """
         Calculates the index of the left child node in the heap.
 
@@ -54,7 +34,7 @@ class MaxPriorityQueue:
         """
         return 2 * index + 1
 
-    def __right_child(self: object, index: int) -> int:
+    def _right_child(self: object, index: int) -> int:
         """
         Calculates the index of the right child node in the heap.
 
@@ -66,7 +46,7 @@ class MaxPriorityQueue:
         """
         return 2 * index + 2
 
-    def __swap(self: object, i: int, j: int) -> None:
+    def _swap(self: object, i: int, j: int) -> None:
         """
         Swaps the elements at indices i and j in the heap.
 
@@ -99,9 +79,9 @@ class MaxPriorityQueue:
         Returns:
         None
         """
-        parent: int = self.__parent(index)
+        parent: int = self._parent(index)
         if index > 0 and self.__heap[parent] < self.__heap[index]:
-            self.__swap(parent, index)
+            self._swap(parent, index)
             self.__heapify_up(parent)
 
     def __heapify_down(self: object, index: int) -> None:
@@ -119,15 +99,15 @@ class MaxPriorityQueue:
         Returns:
         None
         """
-        left: int = self.__left_child(index)
-        right: int = self.__right_child(index)
+        left: int = self._left_child(index)
+        right: int = self._right_child(index)
         largest: int = index
         if left < len(self.__heap) and self.__heap[left] > self.__heap[largest]:
             largest = left
         if right < len(self.__heap) and self.__heap[right] > self.__heap[largest]:
             largest = right
         if largest != index:
-            self.__swap(index, largest)
+            self._swap(index, largest)
             self.__heapify_down(largest)
 
     def insert(self: object, value) -> None:

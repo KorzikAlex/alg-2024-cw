@@ -1,59 +1,38 @@
 """
 The main file.
 """
-
-from os import name as os_name
-from os import system
-
 from modules.priority_queue import MaxPriorityQueue
-from modules.console_functions import get_answer, deliver_broilers
+from modules.console_functions import get_answer, clear_console, handle_delivery, handle_sale, print_broilers
 
-if __name__ == "__main__":
+def main() -> None:
     pq: MaxPriorityQueue = MaxPriorityQueue()
-    system("cls" if os_name == "nt" else "clear")
+    clear_console()
     print("Здравствуйте, милорд! Чтобы вы хотели сделать?")
     while True:
-        while True:
-            try:
-                print("Введите номер опции:")
-                ans: int = get_answer()
-                break
-            except ValueError:
-                system("cls" if os_name == "nt" else "clear")
-                print(
-                    "Ошибка! Неправильный ввод.\n"
-                    "Пожалуйста, введите число от 1 до 4.\n"
-                    "Введите номер опции:\n"
-                )
-                continue
+        try:
+            print("Введите номер опции:")
+            ans: int = get_answer()
+        except ValueError:
+            clear_console()
+            print(
+                "Ошибка! Неправильный ввод.\n"
+                "Пожалуйста, введите число от 1 до 4."
+            )
+            continue
         if ans == 1:
-            while True:
-                try:
-                    system("cls" if os_name == "nt" else "clear")
-                    print(
-                        "Сделать поставку бройлеров в магазин.\n"
-                        "Введите через пробел вес бройлеров:"
-                    )
-                    pq = deliver_broilers(pq)
-                    print("Бройлеры в ассортименте:", pq)
-                    break
-                except ValueError:
-                    system("cls" if os_name == "nt" else "clear")
-                    print(
-                        "Ошибка! Некорректный ввод веса!\n"
-                        "Введите ещё раз вес каждого бройлера через пробел."
-                    )
-                    continue
+            clear_console()
+            handle_delivery(pq)
+            print_broilers(pq)
         elif ans == 2:
-            print("Бройлеры в ассортименте:", pq)
+            clear_console()
+            print_broilers(pq)
         elif ans == 3:
-            try:
-                system("cls" if os_name == "nt" else "clear")
-                print("Продан бройлер", pq.peek_max())
-                pq.extract_max()
-                print("Бройлеры в ассортименте:", pq)
-            except IndexError:
-                system("cls" if os_name == "nt" else "clear")
-                print("Ассортимент пуст.")
+            clear_console()
+            handle_sale(pq)
+            print_broilers(pq)
         elif ans == 4:
             exit(0)
+
+
+if __name__ == "__main__":
+    main()
